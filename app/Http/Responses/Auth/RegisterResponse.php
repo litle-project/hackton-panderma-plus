@@ -2,7 +2,8 @@
 
 namespace App\Http\Responses\Auth;
 
-use Illuminate\Support\Facades\Redis;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
 
@@ -24,11 +25,11 @@ class RegisterResponse implements Responsable
     protected function validate($request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:225|',
-            'email' => 'required|email',
-            'password' => 'required|min:6',
+            'name' => 'required|max:225',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|max:10',
             'password_confirmation' => 'required|same:password',
-            'phone' => 'required|min:10|max:15',
+            'phone' => 'required|min:10|max:15|unique:users,phone',
         ]);
 
         if ($validator->fails()) {
@@ -43,7 +44,12 @@ class RegisterResponse implements Responsable
 
     protected function process($request)
     {
-        Redis::connection('default')->set('token', 'Taylor');
+        User::create([
+            'full_name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+        ]);
     }
 
     protected function invalid($message, $code)
