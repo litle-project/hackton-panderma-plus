@@ -17,6 +17,6 @@ use App\Http\Controllers\AuthController;
 $router->group(['prefix' => '/api'], function () use ($router) {
     $router->group(['prefix' => '/auth'], function () use ($router) {
         $router->post('/register', 'AuthController@register');
-        // $router->get('/login', 'AuthController@login');
+        $router->post('/login', 'AuthController@login');
     });
 });

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 // response
 use App\Http\Responses\Auth\RegisterResponse;
-// use App\Http\Responses\Auth\LoginResponse;
+use App\Http\Responses\Auth\LoginResponse;
 // use App\Http\Responses\Auth\LogoutResponse;
 
 class AuthController extends Controller
@@ -19,8 +19,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // dd('masuk');
-        // return new LoginResponse;
+        return new LoginResponse;
     }
 
     public function logout()
