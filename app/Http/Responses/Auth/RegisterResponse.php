@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses\Auth;
 
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
 
@@ -42,7 +43,7 @@ class RegisterResponse implements Responsable
 
     protected function process($request)
     {
-        // code...
+        Redis::connection('default')->set('token', 'Taylor');
     }
 
     protected function invalid($message, $code)
