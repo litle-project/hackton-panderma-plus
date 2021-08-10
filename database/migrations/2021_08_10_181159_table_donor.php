@@ -13,7 +13,22 @@ class TableDonor extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('donors', function (Blueprint $table) {
+            $table->increments('donor_id');
+            $table->integer('user_id');
+            $table->enum('type', ['seeker', 'giver']);
+            $table->integer('category_id');
+            $table->string('cover')->nullable();
+            $table->string('title');
+            $table->string('phone');
+            $table->longText('description');
+            $table->integer('total_need')->nullable();
+            $table->text('address');
+            $table->text('latitude')->nullable();
+            $table->text('longitude')->nullable();
+            $table->dateTime('deadline')->nullable()->default(date('Y-m-d H:i:s'));
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +38,6 @@ class TableDonor extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('donors');
     }
 }

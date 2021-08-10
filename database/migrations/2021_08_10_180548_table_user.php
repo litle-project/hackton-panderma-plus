@@ -13,10 +13,15 @@ class TableUser extends Migration
      */
     public function up()
     {
-        Schema::create('flights', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('airline');
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('user_id');
+            $table->string('full_name');
+            $table->string('photo_profile');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
+            $table->text('password');
+            $table->date('birthday');
+            $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class TableUser extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('users');
     }
 }

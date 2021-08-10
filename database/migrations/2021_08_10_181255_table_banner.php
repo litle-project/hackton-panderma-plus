@@ -13,7 +13,11 @@ class TableBanner extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('banners', function (Blueprint $table) {
+            $table->increments('banner_id');
+            $table->string('image');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ class TableBanner extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('banners');
     }
 }
