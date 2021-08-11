@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses\Donor;
 
+use Carbon\Carbon;
 use App\Models\Donor;
 use Illuminate\Contracts\Support\Responsable;
 
@@ -56,6 +57,9 @@ class DonorResponse implements Responsable
             ->simplePaginate(10);
 
         $donor->each(function($item) {
+            $now = Carbon::now()->diffInDays($item->deadline);
+            dd($now);
+            // $item->deadline =
             if ($item->type === 'GIVER') {
                 $item->full_name = $item->full_name ?? 'Pendonor';
             }
