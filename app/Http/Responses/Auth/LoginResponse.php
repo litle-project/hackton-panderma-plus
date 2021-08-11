@@ -50,11 +50,10 @@ class LoginResponse implements Responsable
     {
         $user = User::where('email', $request->email)->first();
         $password_match = Hash::check($request->password, $user->password);
-        $is_verified = $user->is_verified;
 
         return (object) [
             'match' => $password_match,
-            'verified' => $is_verified == 'false',
+            'verified' => $user->is_verified,
         ];
     }
 
