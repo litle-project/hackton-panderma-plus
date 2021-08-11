@@ -19,7 +19,8 @@ class LoginResponse implements Responsable
             if (!$valid->status) return $this->invalid($valid->message, 400);
 
             $check = $this->credential_checker($request);
-            if (!$check) return $this->invalid('Email or Password is Invalid', 400);
+            if (!$check->match) return $this->invalid('Email or Password is Invalid', 400);
+            if (!$check->verified) return $this->invalid('Your Account is Not Verified', 400);
 
             $process = $this->process($request);
             return $this->success($process);
@@ -48,14 +49,20 @@ class LoginResponse implements Responsable
     protected function credential_checker($request)
     {
         $user = User::where('email', $request->email)->first();
-        return Hash::check($request->password, $user->password);
+        $password_match = Hash::check($request->password, $user->password);
+        $is_verified = $user->is_verified;
+
+        return (object) [
+            'match' => $password_match,
+            'verified' => $is_verified == 'false',
+        ];
     }
 
     protected function process($request)
     {
         $user = User::where('email', $request->email)->first();
         $token = $this->generateToken($user);
-        // 
+        //
         // Redis::set('token: '. $user->email, $token);
         // Redis::expire('token: '. $user->email, 86400);
 
