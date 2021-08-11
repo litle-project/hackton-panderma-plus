@@ -3,42 +3,56 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Firebase\JWT\JWT;
+use Illuminate\Http\Request;
+use Firebase\JWT\ExpiredException;
+use Illuminate\Support\Facades\Auth;
+use Firebase\JWT\BeforeValidException;
+use App\Providers\RouteServiceProvider;
+use Firebase\JWT\SignatureInvalidException;
+use App\Http\Responses\UnauthorizedResponse;
 
 class Authenticate
 {
-    /**
-     * The authentication guard factory instance.
-     *
-     * @var \Illuminate\Contracts\Auth\Factory
-     */
-    protected $auth;
-
-    /**
-     * Create a new middleware instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
-
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        try {
+            $this->validateHeader($request);
+            return $next($request);
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 401,
+                'message' => $e->getMessage(),
+                'data' => null
+            ], 401);
+        }
+    }
+
+    private function validateHeader(Request $request)
+    {
+        $key = env('JWT_SECRET', 'default-value');
+        $token = $request->bearerToken();
+        // check bearer token is valid
+        if (!$token) {
+            throw new \Exception('Bearer token is required.');
         }
 
-        return $next($request);
+        try {
+            $decoded_payload = JWT::decode($token, $key, array('HS256'));
+        } catch (SignatureInvalidException $e) {
+            throw new \Exception($e->getMessage());
+        } catch (BeforeValidException $e) {
+            throw new \Exception($e->getMessage());
+        } catch (ExpiredException $e) {
+            throw new \Exception('Token expired');
+        }
     }
 }

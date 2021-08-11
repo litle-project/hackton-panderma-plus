@@ -25,7 +25,7 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->get('/category', 'CategoryController');
     });
 
-    $router->group(['prefix' => '/user'], function () use ($router) {
+    $router->group(['prefix' => '/user', 'middleware' => 'auth'], function () use ($router) {
         $router->get('/profile', 'UserController@profile');
         $router->post('/update', 'UserController@update');
     });
