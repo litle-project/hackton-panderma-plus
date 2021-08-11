@@ -9,6 +9,7 @@
         "firebase/php-jwt": "^5.4",
         "illuminate/redis": "^8.54",
         "laravel/lumen-framework": "^8.0",
+        "nesbot/carbon": "^2.51",
         "predis/predis": "1.0"
     },
     "require-dev": {

@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +22,15 @@ $router->group(['prefix' => '/api'], function () use ($router) {
     $router->group(['prefix' => '/general'], function () use ($router) {
         $router->get('/banner', 'BannerController');
         $router->get('/category', 'CategoryController');
+    });
+
+    $router->group(['prefix' => '/donor'], function () use ($router) {
+        $router->get('/', 'DonorController@index');
+        $router->get('/detail', 'DonorController@detail');
+        $router->post('/create', [
+            'middleware' => 'auth',
+            'uses' => 'DonorController@create',
+        ]);
     });
 
     $router->group(['prefix' => '/user', 'middleware' => 'auth'], function () use ($router) {

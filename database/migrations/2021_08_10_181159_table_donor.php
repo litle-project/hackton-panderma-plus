@@ -16,7 +16,7 @@ class TableDonor extends Migration
         Schema::create('donors', function (Blueprint $table) {
             $table->increments('donor_id');
             $table->integer('user_id');
-            $table->enum('type', ['seeker', 'giver']);
+            $table->enum('type', ['SEEKER', 'GIVER']);
             $table->integer('category_id');
             $table->string('cover')->nullable();
             $table->string('title');
@@ -26,7 +26,7 @@ class TableDonor extends Migration
             $table->text('address');
             $table->text('latitude')->nullable();
             $table->text('longitude')->nullable();
-            $table->dateTime('deadline')->nullable()->default(date('Y-m-d H:i:s'));
+            $table->dateTime('deadline')->nullable();
             $table->timestamps();
         });
     }
