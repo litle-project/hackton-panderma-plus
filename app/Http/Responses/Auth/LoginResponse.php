@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Auth;
 
 use App\Models\User;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
@@ -53,8 +54,30 @@ class LoginResponse implements Responsable
     protected function process($request)
     {
         $user = User::where('email', $request->email)->first();
-        $token = Str::random(10);
-        return [ 'token' => Str::uuid($user->password).$token.Str::uuid($user->email) ];
+        $token = $this->generateToken($user);
+        // 
+        // Redis::set('token: '. $user->email, $token);
+        // Redis::expire('token: '. $user->email, 86400);
+
+        return [ 'token' => $token ];
+    }
+
+    private function generateToken($user)
+    {
+        $key = env('JWT_SECRET', 'default-value');
+        $generate_time = time();
+        $expired_time = $generate_time + (60 * 60 * 24); //60 seconds * 60 minutes * 72 hours (3 days)
+
+        $payload = [
+            'iat' => $generate_time,
+            'exp' => $expired_time,
+            'data' => [
+                'id' => $user->user_id,
+                'email' => $user->email,
+            ]
+        ];
+
+        return JWT::encode($payload, $key);
     }
 
     protected function invalid($message, $code)

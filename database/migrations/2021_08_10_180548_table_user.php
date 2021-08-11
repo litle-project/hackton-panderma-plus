@@ -21,6 +21,7 @@ class TableUser extends Migration
             $table->string('phone')->unique();
             $table->text('password');
             $table->date('birthday')->nullable();
+            $table->boolean('is_verified');
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
             $table->timestamps();
         });

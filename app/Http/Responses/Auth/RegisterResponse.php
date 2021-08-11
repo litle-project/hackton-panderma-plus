@@ -49,6 +49,7 @@ class RegisterResponse implements Responsable
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
+            'is_verified' => 'false',
         ]);
     }
 

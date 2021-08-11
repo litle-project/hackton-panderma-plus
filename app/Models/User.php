@@ -16,6 +16,7 @@ class User extends Model
         'birthday',
         'gender',
         'photo_profile',
+        'is_verified',
         'created_at',
         'updated_at',
     ];

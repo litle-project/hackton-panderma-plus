@@ -14,6 +14,12 @@ class banner_seeder extends Seeder
      */
     public function run()
     {
-        
+        $data = [
+            [ 'image' => 'banner-donor-1.jpeg', ],
+            [ 'image' => 'banner-donor-2.jpeg', ],
+            [ 'image' => 'banner-donor-3.jpeg', ],
+        ];
+
+        DB::table('banners')->insert($data);
     }
 }

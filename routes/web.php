@@ -19,4 +19,9 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->post('/register', 'AuthController@register');
         $router->post('/login', 'AuthController@login');
     });
+
+    $router->group(['prefix' => '/general'], function () use ($router) {
+        $router->get('/banner', 'BannerController');
+        $router->get('/category', 'CategoryController');
+    });
 });

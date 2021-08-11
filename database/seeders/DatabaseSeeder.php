@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\category_seeder;
+use Database\Seeders\banner_seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             category_seeder::class,
+            banner_seeder::class,
         ]);
     }
 }

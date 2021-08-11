@@ -17,31 +17,31 @@ class category_seeder extends Seeder
         $data = [
             [
                 'name' => 'Donor Darah',
-                'icon' => url('/icon/blood.png'),
+                'icon' => 'blood.png',
             ],
             [
                 'name' => 'Donor Plasma',
-                'icon' => url('/icon/plasma.png'),
+                'icon' => 'plasma.png',
             ],
             [
                 'name' => 'Donor Ginjal',
-                'icon' => url('/icon/kidney.png'),
+                'icon' => 'kidney.png',
             ],
             [
                 'name' => 'Donor Mata',
-                'icon' => url('/icon/eye.png'),
+                'icon' => 'eye.png',
             ],
             [
                 'name' => 'Donor Paru-paru',
-                'icon' => url('/icon/lungs.png'),
+                'icon' => 'lungs.png',
             ],
             [
                 'name' => 'Donor Kulit',
-                'icon' => url('/icon/skin.png'),
+                'icon' => 'skin.png',
             ],
             [
                 'name' => 'Donor Alat Medis',
-                'icon' => url('/icon/chair.png'),
+                'icon' => 'chair.png',
             ],
         ];
 
