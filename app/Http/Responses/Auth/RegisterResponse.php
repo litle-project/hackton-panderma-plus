@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
@@ -49,6 +50,7 @@ class RegisterResponse implements Responsable
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
+            'verification_code' => Str::random(5),
             'is_verified' => 'false',
         ]);
     }

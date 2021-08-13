@@ -23,6 +23,7 @@ class TableUser extends Migration
             $table->date('birthday')->nullable();
             $table->boolean('is_verified');
             $table->enum('gender', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('verification_code')->nullable();
             $table->timestamps();
         });
     }

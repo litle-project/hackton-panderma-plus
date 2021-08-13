@@ -17,6 +17,7 @@ class User extends Model
         'gender',
         'photo_profile',
         'is_verified',
+        'verification_code',
         'created_at',
         'updated_at',
     ];

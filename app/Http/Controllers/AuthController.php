@@ -20,4 +20,9 @@ class AuthController extends Controller
     {
         return new LoginResponse;
     }
+
+    public function verify(Request $request)
+    {
+        // code...
+    }
 }
