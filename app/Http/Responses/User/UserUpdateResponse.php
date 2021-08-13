@@ -53,23 +53,23 @@ class UserUpdateResponse implements Responsable
     protected function process($request)
     {
         $token = JWT::decode($request->bearerToken(), env('JWT_SECRET'), ['HS256']);
-        $user = User::select(
-            'full_name',
-            'email',
-            'phone',
-            'birthday',
-            'gender',
-            'photo_profile',
-            'is_verified'
-        )->where('user_id', $token->data->id)->first();
-
-        $user->update([
+        User::where('user_id', $token->data->id)->update([
             'full_name' => $request->name,
             'phone' => $request->phone,
             'gender' => $request->gender,
             'birthday' => $request->birthday,
-            'photo_profile' => $request->photo_profile ?? ''
+            'photo_profile' => $request->photo_profile ?? $user->photo_profile
         ]);
+
+        $user = User::select(
+          'full_name',
+          'email',
+          'phone',
+          'birthday',
+          'gender',
+          'photo_profile',
+          'is_verified'
+        )->where('user_id', $token->data->id)->first();
 
         unset($user->updated_at);
         return $user;

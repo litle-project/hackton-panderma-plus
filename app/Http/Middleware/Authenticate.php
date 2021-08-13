@@ -49,7 +49,7 @@ class Authenticate
             $decoded_payload = JWT::decode($token, $key, array('HS256'));
             $user = User::where('user_id', $decoded_payload->data->id)->first();
             if (!$user) throw new \Exception('User has been deleted');
-            if ($user && !$user->is_verified) throw new \Exception('Your Account is Not Verified');
+            // if ($user && !$user->is_verified) throw new \Exception('Your Account is Not Verified');
         } catch (SignatureInvalidException $e) {
             throw new \Exception($e->getMessage());
         } catch (BeforeValidException $e) {

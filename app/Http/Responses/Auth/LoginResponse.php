@@ -20,7 +20,7 @@ class LoginResponse implements Responsable
 
             $check = $this->credential_checker($request);
             if (!$check->match) return $this->invalid('Email or Password is Invalid', 400);
-            if (!$check->verified) return $this->invalid('Your Account is Not Verified', 400);
+            // if (!$check->verified) return $this->invalid('Your Account is Not Verified', 400);
 
             $process = $this->process($request);
             return $this->success($process);
