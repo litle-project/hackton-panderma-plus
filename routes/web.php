@@ -26,6 +26,7 @@ $router->group(['prefix' => '/api'], function () use ($router) {
     $router->group(['prefix' => '/general'], function () use ($router) {
         $router->get('/banner', 'BannerController');
         $router->get('/category', 'CategoryController');
+        $router->post('/upload', 'UploadController');
     });
 
     $router->group(['prefix' => '/donor'], function () use ($router) {
