@@ -7,11 +7,13 @@
     "require": {
         "php": "^7.3|^8.0",
         "firebase/php-jwt": "^5.4",
+        "illuminate/mail": "^8.54",
         "illuminate/redis": "^8.54",
         "laravel/lumen-framework": "^8.0",
         "league/flysystem": " ~1.0",
         "nesbot/carbon": "^2.51",
-        "predis/predis": "1.0"
+        "predis/predis": "1.0",
+        "snowfire/beautymail": "^1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
