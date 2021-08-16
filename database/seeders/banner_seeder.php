@@ -19,7 +19,8 @@ class banner_seeder extends Seeder
             [ 'image' => 'dua.png', ],
             [ 'image' => 'tiga.png', ],
         ];
-
+        
+        DB::table('banners')->truncate();
         DB::table('banners')->insert($data);
     }
 }
