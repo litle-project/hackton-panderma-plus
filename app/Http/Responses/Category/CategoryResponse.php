@@ -37,7 +37,7 @@ class CategoryResponse implements Responsable
     protected function process()
     {
         return Category::query()
-            ->select('category_id', 'icon')
+            ->select('category_id', 'icon', 'name')
             ->get()
             ->map(function($item) {
                 $item->icon = url('/icon/' . $item->icon);
