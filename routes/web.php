@@ -14,7 +14,7 @@
 */
 
 $router->get('/', function() {
-  return 'Hello World, Keep learn!';
+  return view('verification');
 });
 
 $router->group(['prefix' => '/api'], function () use ($router) {
