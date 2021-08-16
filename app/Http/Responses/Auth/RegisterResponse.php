@@ -4,6 +4,7 @@ namespace App\Http\Responses\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
@@ -45,6 +46,17 @@ class RegisterResponse implements Responsable
 
     protected function process($request)
     {
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic c2VhZ2xlYXg3MDBAZ21haWwuY29tOldpbmRvd3MgOCQ=',
+            'Content-Type' => 'application/json'
+        ])->post('https://email.ocatelkom.co.id/api/v1/send-single', [
+            'email' => 'litle.project@gmail.com',
+            'message' => Str::random(5),
+            'sender_email' => 'oca.telekomunikasi@gmail.com',
+            'sender_name' => 'panderma-plus',
+            'subject' => 'email verification',
+        ]);
+
         User::create([
             'full_name' => $request->name,
             'email' => $request->email,
